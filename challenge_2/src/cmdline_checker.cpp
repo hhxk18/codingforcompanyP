@@ -7,6 +7,9 @@
 
 static const char DELIMITER = ',';
 static const int EXP_NUM_DELIMITER = 1; //Expected number of delimiter
+static const int MIN_NUM_ARGC = 2;
+static const int MAX_NUM_ARGC = 4;
+static const int DEFAULT_NUM_OF_PEOPLE = 2;
 
 bool isDelimiter( char c )
 {
@@ -15,7 +18,7 @@ bool isDelimiter( char c )
 
 RCode CmdlineParser::parse( int argc, char** args, Results& r )
 {
-    if( argc < 2 || argc > 4 )
+    if( argc < MIN_NUM_ARGC || argc > MAX_NUM_ARGC )
     {
 	cerr << "Unexpected number of arguments!" << endl;	
 	return RCODE_INVALID_ARGS;
@@ -38,7 +41,12 @@ RCode CmdlineParser::parse( int argc, char** args, Results& r )
     }
 
     //number of people
-    r.n = argc == 4 ? atoi( args[3] ) : 2; // default to 2 people
+    r.n = argc == MAX_NUM_ARGC ? atoi( args[3] ) : DEFAULT_NUM_OF_PEOPLE; // default to 2 people
+    if( r.n <= 0 )
+    {
+	cerr << "Invalid num of people <" << r.n << ">" << endl;
+	return RCODE_INVALID_ARGS;
+    }
     
     string fileName = args[1];
     ifstream fs( fileName );

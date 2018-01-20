@@ -11,9 +11,6 @@ void pickGifts( unsigned long long balance,
 		int startIndex,
 		vector< Gift >& selected )
 {
-    cout << "balance <" << balance << "> number <"
-	 << number << "> startIndex <" << startIndex << ">" << endl;
-    
     if( gifts.size() - startIndex < number )
     {
 	selected.clear();
@@ -35,7 +32,6 @@ void pickGifts( unsigned long long balance,
 	    int j = 0;
 	    if( gifts.end() == iter ) //all prices are lower than target val
 	    {
-		cout << "case 1" << endl; 
 		j = gifts.size() - 1;
 	    }
 	    else if( iter->price == target.price )
@@ -43,20 +39,17 @@ void pickGifts( unsigned long long balance,
 		selected.clear();
 		selected.push_back( gifts[i] );
 		selected.push_back( *iter );
-		cout << "case 2" << endl; 
 		return;
 	    }
 	    else if( iter == searchBegin ) //all price are higher than target val
 	    {
 		//this exceeds balance
-		cout << "exceeds balance" << endl;
 		continue;
 	    }
 	    else
 	    {
 		--iter;
 		j = iter - gifts.begin();
-		cout << "case 3: j <" << j << ">" << endl; 		
 	    }
 	    unsigned long long temp = gifts[i].price + gifts[j].price;
 	    if( temp > maxValue )
@@ -77,6 +70,7 @@ void pickGifts( unsigned long long balance,
 	pickGifts( balance - gifts[j].price, number-1, gifts, j+1, tempRes );
 	if( tempRes.empty() )
 	{
+	    //No picks possible from next level of recurrsion 
 	    continue;
 	}
 	unsigned long long temp = gifts[j].price;
