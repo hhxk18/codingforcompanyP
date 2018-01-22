@@ -1,5 +1,10 @@
 # codingforcompanyP
 solutions for coding challenges from company P.
+Challenge 1:
+The app is hosted on pythonanywhere.com. Please send HTTP requests to:
+http://hhxk18.pythonanywhere.com/
+
+It caches tuples of SHA256 and original message, use the cache to return previous message.
 
 On Windows:
 
